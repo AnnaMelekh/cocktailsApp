@@ -48,10 +48,10 @@ private extension MainViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            tableView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

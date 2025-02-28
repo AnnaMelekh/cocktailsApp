@@ -49,7 +49,7 @@ final class Cell: UITableViewCell {
     
     private func setupUI() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = UIColor(named: "pink1") ?? UIColor.yellow
+        containerView.backgroundColor = UIColor(named: "pink2") ?? UIColor.yellow
         containerView.layer.cornerRadius = 15
         contentView.addSubview(containerView)
         
