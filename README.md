@@ -8,7 +8,7 @@
 ### Features
 
 - **Cocktail Search by Name**: Use the search bar on the main screen to find cocktails by their names.
-- **Bookmarks**: Add your favorite cocktail recipes to the bookmarks tab. Remove recipes with a standard swipe-to-delete gesture.
+- **Bookmarks**: -
 - **Ingredient-Based Search**: Explore cocktails by specific ingredients using a collection view of popular ingredients.
 
 ### Technologies Used
