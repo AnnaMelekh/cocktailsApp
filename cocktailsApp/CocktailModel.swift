@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct CocktailModel: Codable {
+struct CocktailModel: Codable, Equatable {
     var ingredients: String
     var instructions: String
     var name: String

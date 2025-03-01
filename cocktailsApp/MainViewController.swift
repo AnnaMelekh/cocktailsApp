@@ -8,8 +8,13 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    private lazy var tableView = UITableView()
-    var quotes: [CocktailModel] = []
+    lazy var tableView = UITableView()
+    private lazy var searchBar = UISearchBar()
+//    var isSearching = false
+    var isEmptyResult: Bool = false
+    let emptyResult = [CocktailModel(ingredients: "no results", instructions: "", name: "")]
+
+    var cocktails: [CocktailModel] = []
 
     var networkService = NetworkService()
     
@@ -20,13 +25,11 @@ class MainViewController: UIViewController {
         setupTableView()
         setupNavbar()
         setupConstraints()
+        
         networkService.delegate = self
-        networkService.performRequest(name: "margarita")
-        
-        
+        searchBar.delegate = self
+
     }
-    
-    
 }
 
 private extension MainViewController {
@@ -34,6 +37,19 @@ private extension MainViewController {
     func setupUI() {
         view.backgroundColor = .white
         
+        view.addSubview(searchBar)
+
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = "Search for the cocktail..."
+        
+        NSLayoutConstraint.activate([
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            searchBar.heightAnchor.constraint(equalToConstant: 90),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
     }
     
     func setupTableView() {
@@ -48,7 +64,7 @@ private extension MainViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -75,7 +91,7 @@ private extension MainViewController {
                 return
             }
 
-            let quote = quotes[indexPath.row]
+            let quote = cocktails[indexPath.row]
             BookmarkManager.shared.saveQuote(quote)
 
             print("Quote saved:", quote)
@@ -87,44 +103,40 @@ private extension MainViewController {
         
     }
     
-    @objc func refreshTapped(_ sender: UIButton) {
-        networkService.performRequest()
-        
-        var superview = sender.superview
-            while let view = superview, !(view is Cell) {
-                superview = view.superview
-            }
-
-            guard let cell = superview as? Cell,
-                  let indexPath = tableView.indexPath(for: cell) else {
-                return
-            }
-        cell.bookmarkButton.setImage(UIImage(named: "bookmark"), for: .normal)
-        
-    }
     
 
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        quotes.count
+        if cocktails == [] {
+               return 1
+           } else {
+               return cocktails.count
+           }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! Cell
-        cell.configure(with: quotes[indexPath.row])
-        
-        cell.bookmarkButton.addTarget(self, action: #selector(bookmarkTapped), for: .touchUpInside)
+        if cocktails == [] {
+            cell.configure(with: emptyResult[indexPath.row])
+ 
+            cell.bookmarkButton.isHidden = true
+            } else {
+                cell.configure(with: cocktails[indexPath.row])
+                cell.bookmarkButton.addTarget(self, action: #selector(bookmarkTapped), for: .touchUpInside)
+
+            }
+            
         
         return cell
     }
 }
 
 extension MainViewController: NetworkServiceDelegate {
-    func didUpdateData(quotes: [CocktailModel]) {
+    func didUpdateData(cocktails: [CocktailModel]) {
         DispatchQueue.main.async {
-            self.quotes = quotes
+            self.cocktails = cocktails
             self.tableView.reloadData()
         }
     }
@@ -136,7 +148,37 @@ extension MainViewController: NetworkServiceDelegate {
     
 }
 
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+           guard !searchText.isEmpty else { return }
+       }
+       
+       func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+           guard let nameCocktail = searchBar.text, !nameCocktail.isEmpty else { return }
+           
+           networkService.performRequest(name: nameCocktail) { [weak self] cocktails in
+               DispatchQueue.main.async { [self] in
+                   if cocktails.isEmpty {
+                              self?.isEmptyResult = true
+                       self?.cocktails = []
+                          } else {
+                              self?.isEmptyResult = false
+                              self?.cocktails = cocktails
+                          }
+                          self?.tableView.reloadData()
+               }
+           }
+           
+           searchBar.resignFirstResponder()
+       }
+       
+       func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+           searchBar.text = ""
+           cocktails.removeAll()
+           tableView.reloadData()
+           searchBar.resignFirstResponder()
+       }
+}
 
 
-
-//#Preview {MainViewController() }
+#Preview {MainViewController() }

@@ -20,6 +20,9 @@
 		F326C9C92D72615000B451B9 /* Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9C62D72615000B451B9 /* Tabbar.swift */; };
 		F326C9CA2D72615000B451B9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9C72D72615000B451B9 /* MainViewController.swift */; };
 		F326C9CD2D72687800B451B9 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9CC2D72687800B451B9 /* BookmarkManager.swift */; };
+		F326C9CF2D7355E200B451B9 /* IngredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9CE2D7355E200B451B9 /* IngredViewController.swift */; };
+		F326C9D12D73569700B451B9 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9D02D73569700B451B9 /* CategoryCell.swift */; };
+		F326C9D32D735C6300B451B9 /* Ingreds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326C9D22D735C6300B451B9 /* Ingreds.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		F326C9C62D72615000B451B9 /* Tabbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tabbar.swift; sourceTree = "<group>"; };
 		F326C9C72D72615000B451B9 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F326C9CC2D72687800B451B9 /* BookmarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
+		F326C9CE2D7355E200B451B9 /* IngredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredViewController.swift; sourceTree = "<group>"; };
+		F326C9D02D73569700B451B9 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		F326C9D22D735C6300B451B9 /* Ingreds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingreds.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,9 @@
 				F326C9BE2D725F7600B451B9 /* Cell.swift */,
 				F326C9BA2D725F1400B451B9 /* CocktailData.swift */,
 				F326C9BC2D725F5500B451B9 /* CocktailModel.swift */,
+				F326C9CE2D7355E200B451B9 /* IngredViewController.swift */,
+				F326C9D02D73569700B451B9 /* CategoryCell.swift */,
+				F326C9D22D735C6300B451B9 /* Ingreds.swift */,
 				F326C9AC2D725E0B00B451B9 /* Main.storyboard */,
 				F326C9AF2D725E0D00B451B9 /* Assets.xcassets */,
 				F326C9B12D725E0D00B451B9 /* LaunchScreen.storyboard */,
@@ -162,6 +171,7 @@
 				F326C9C52D7260C100B451B9 /* BookmarksViewController.swift in Sources */,
 				F326C9BD2D725F5500B451B9 /* CocktailModel.swift in Sources */,
 				F326C9BB2D725F1400B451B9 /* CocktailData.swift in Sources */,
+				F326C9D32D735C6300B451B9 /* Ingreds.swift in Sources */,
 				F326C9C92D72615000B451B9 /* Tabbar.swift in Sources */,
 				F326C9A72D725E0B00B451B9 /* AppDelegate.swift in Sources */,
 				F326C9A92D725E0B00B451B9 /* SceneDelegate.swift in Sources */,
@@ -169,6 +179,8 @@
 				F326C9CD2D72687800B451B9 /* BookmarkManager.swift in Sources */,
 				F326C9BF2D725F7600B451B9 /* Cell.swift in Sources */,
 				F326C9C12D725FE400B451B9 /* NetworkService.swift in Sources */,
+				F326C9CF2D7355E200B451B9 /* IngredViewController.swift in Sources */,
+				F326C9D12D73569700B451B9 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

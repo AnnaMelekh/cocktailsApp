@@ -33,7 +33,7 @@ final class Cell: UITableViewCell {
         return label
     }()
     
-    private lazy var ingredLabel = UILabel()
+     lazy var ingredLabel = UILabel()
     private lazy var containerView = UIView()
     lazy var bookmarkButton = UIButton(type: .system)
     

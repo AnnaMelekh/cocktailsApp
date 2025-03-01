@@ -31,7 +31,7 @@ final class CustomTabBarController: UITabBarController {
             bookmarksVC.tabBarItem = UITabBarItem(title: nil, image: bookmarkImage, selectedImage: selectedImage)
         }
         
-        let createVC = UINavigationController(rootViewController: UIViewController())
+        let createVC = UINavigationController(rootViewController: IngredViewController())
         if let createImage = UIImage(named: "note") {
             let selectedImage = createImage.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal)
             createVC.tabBarItem = UITabBarItem(title: nil, image: createImage, selectedImage: selectedImage)

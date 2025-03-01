@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NetworkServiceDelegate {
-    func didUpdateData(quotes: [CocktailModel])
+    func didUpdateData(cocktails: [CocktailModel])
     func didFailWithError(error: Error)
 }
 
@@ -18,7 +18,7 @@ struct NetworkService {
     var delegate: NetworkServiceDelegate?
 
 
-    func performRequest(name: String? = nil, ingredient: String? = nil) {
+    func performRequest(name: String? = nil, ingredient: String? = nil, completion: @escaping ([CocktailModel]) -> Void) {
         var components = URLComponents(string: "https://api.api-ninjas.com/v1/cocktail")
            var queryItems: [URLQueryItem] = []
            
@@ -49,7 +49,7 @@ struct NetworkService {
                 if let safeData = data {
                     if let cocktailModel = self.parseJSON(safeData) {
                         DispatchQueue.main.async {
-                            self.delegate?.didUpdateData(quotes: cocktailModel)
+                            self.delegate?.didUpdateData(cocktails: cocktailModel)
                         }
                     }
                 }

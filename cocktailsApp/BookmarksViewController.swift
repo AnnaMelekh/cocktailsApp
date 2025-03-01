@@ -8,7 +8,6 @@ import UIKit
 
 final class BookmarksViewController: UIViewController {
     
-    private lazy var searchBar = UISearchBar()
     private lazy var tableView = UITableView()
 
     var bookmarks: [CocktailModel] = []
@@ -40,19 +39,7 @@ private extension BookmarksViewController {
     
     func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(searchBar)
-
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search for the cocktail..."
-        
-        NSLayoutConstraint.activate([
-            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            searchBar.heightAnchor.constraint(equalToConstant: 90),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            ])
+       
     }
     
     func setupTableView() {
@@ -65,7 +52,7 @@ private extension BookmarksViewController {
 
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 1),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -74,7 +61,7 @@ private extension BookmarksViewController {
     }
     
     @objc func updateBookmarks() {
-//        bookmarks = BookmarkManager.shared.getSavedQuotes()
+        bookmarks = BookmarkManager.shared.getSavedQuotes()
         tableView.reloadData()
     }
     
@@ -117,28 +104,6 @@ extension BookmarksViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 
-//extension BookmarksViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.isEmpty {
-//                    isSearching = false
-//                    filteredQuotes = bookmarks
-//                } else {
-//                    isSearching = true
-//                    filteredQuotes = bookmarks.filter { quote in
-//                        quote.quote.lowercased().contains(searchText.lowercased()) ||
-//                        quote.author.lowercased().contains(searchText.lowercased())
-//                    }
-//                }
-//        tableView.reloadData()
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchBar.text = ""
-//        isSearching = false
-//        filteredQuotes = bookmarks
-//            tableView.reloadData()
-//        searchBar.resignFirstResponder()
-//    }
-//}
+
 
 
