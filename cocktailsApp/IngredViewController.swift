@@ -35,7 +35,7 @@ final class IngredViewController: UIViewController {
         setupUI()
         setupConstraints()
         
-        
+        networkService.delegate = self
     
     }
     
@@ -48,25 +48,45 @@ final class IngredViewController: UIViewController {
 // MARK: - UICollectionViewDelegate
 extension IngredViewController: UICollectionViewDelegate  {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
-        }
         
         let ingredient = ingredients[indexPath.item].rawValue
         
-        networkService.performRequest(ingredient: ingredient) { cocktails in
+        networkService.performRequest(ingredient: ingredient) { [weak self] cocktails in
             DispatchQueue.main.async {
-                if let tabBarController = self.tabBarController {
-                    tabBarController.selectedIndex = 1
-                    
-                    if let mainVC = tabBarController.viewControllers?[1] as? MainViewController {
-                        mainVC.cocktails = cocktails
-                        mainVC.tableView.reloadData()
-                    }
-                }
+               
+                self?.didUpdateData(cocktails: cocktails)
             }
         }
     }
 }
+
+extension IngredViewController: NetworkServiceDelegate {
+    func didUpdateData(cocktails: [CocktailModel]) {
+        guard let tabBar = self.tabBarController else {
+                    print("TabBarController is nil")
+                    return
+                }
+        
+        guard let mainVC = tabBar.viewControllers?[1] as? MainViewController else {
+            return
+        }
+
+
+            mainVC.cocktails = cocktails
+            mainVC.tableView.reloadData()
+    
+            tabBar.selectedIndex = 1
+        
+    }
+    
+    func didFailWithError(error: any Error) {
+        print(error.localizedDescription)
+    }
+    
+    
+}
+    
+
             
 
 // MARK: - UICollectionViewDataSource

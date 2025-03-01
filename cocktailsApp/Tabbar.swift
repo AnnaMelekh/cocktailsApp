@@ -1,6 +1,6 @@
 //
 //  Tabbar.swift
- //
+//
 //  Created by Anna Melekhina on 28.02.2025.
 //
 
@@ -9,6 +9,9 @@ import UIKit
 final class CustomTabBarController: UITabBarController {
     
     private let customTabBarView = UIView(frame: .zero)
+    let mainVC = MainViewController()
+    let bookmarksVC = BookmarksViewController()
+    let createVC = IngredViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,25 +21,12 @@ final class CustomTabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
-        let mainVC = UINavigationController(rootViewController: MainViewController())
-
-        if let homeImage = UIImage(named: "home") {
-            let selectedImage = homeImage.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal)
-            mainVC.tabBarItem = UITabBarItem(title: nil, image: homeImage, selectedImage: selectedImage)
-        }
+        mainVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "home"), selectedImage: UIImage(named: "home")?.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal))
+        bookmarksVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "bookmark"), selectedImage: UIImage(named: "bookmark")?.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal))
+        createVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "note"), selectedImage: UIImage(named: "note")?.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal))
         
-        let bookmarksVC = UINavigationController(rootViewController: BookmarksViewController())
-        if let bookmarkImage = UIImage(named: "bookmark") {
-            let selectedImage = bookmarkImage.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal)
-            bookmarksVC.tabBarItem = UITabBarItem(title: nil, image: bookmarkImage, selectedImage: selectedImage)
-        }
-        
-        let createVC = UINavigationController(rootViewController: IngredViewController())
-        if let createImage = UIImage(named: "note") {
-            let selectedImage = createImage.withCircularBackground(color: UIColor(named: "pink1")!)?.withRenderingMode(.alwaysOriginal)
-            createVC.tabBarItem = UITabBarItem(title: nil, image: createImage, selectedImage: selectedImage)
-        }
         self.viewControllers = [bookmarksVC, mainVC, createVC]
+        
         
         self.tabBar.tintColor = .black
         self.tabBar.unselectedItemTintColor = .darkGray
